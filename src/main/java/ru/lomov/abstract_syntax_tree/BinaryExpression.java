@@ -1,15 +1,13 @@
-package ru.lomov.expressions;
+package ru.lomov.abstract_syntax_tree;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class BinaryExpression implements Expression {
     private final char operand;
     private final Expression exp1;
     private final Expression exp2;
-    
+
     @Override
     public double calculate() {
         switch (operand) {
@@ -18,14 +16,19 @@ public class BinaryExpression implements Expression {
             case '*':
                 return exp1.calculate() * exp2.calculate();
             case '/': {
-                if (exp2.equals(0)) {
-                    throw new ArithmeticException();
-                }
+//                if (exp2.equals(0)) {
+//                    throw new ArithmeticException();
+//                }
                 return exp1.calculate() / exp2.calculate();
             }
             case '+':
             default:
                 return exp1.calculate() + exp2.calculate();
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s %c %s]", exp1, operand, exp2);
     }
 }
